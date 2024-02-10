@@ -2,6 +2,7 @@ const net = require('net');
 
 const server = net.createServer((connection) => {
   connection.on('data', () => {
+    console.log('data received');
     connection.write('+PONG\r\n');
   });
 });
