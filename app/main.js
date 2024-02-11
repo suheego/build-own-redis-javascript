@@ -54,9 +54,7 @@ function setCommand(key, value, arg, limit) {
       break;
   }
 
-  if (dataStore.has(key)) {
-    return 'OK';
-  }
+  return 'OK';
 }
 
 function getCommand(key) {
@@ -75,7 +73,6 @@ function configGetCommand(key) {
 function returnRESP(command, response) {
   switch (command) {
     case 'ping':
-    case 'pong':
     case 'echo':
     case 'set':
       return `+${response}\r\n`;
