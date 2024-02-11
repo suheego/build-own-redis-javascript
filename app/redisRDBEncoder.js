@@ -42,6 +42,7 @@ class RedisRdbEncoder {
   }
 
   extractKeyLength(buffer, counter) {
+    console.log(buffer[counter]);
     return buffer[counter];
   }
 
