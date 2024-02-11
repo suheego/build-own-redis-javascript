@@ -1,16 +1,22 @@
 const net = require('net');
+const fs = require('fs');
 
 const PORT = 6379;
 const HOST = '127.0.0.1';
 
 let dataStore = new Map();
+let config = new Map();
 
 function getRequestData(data) {
   return data.toString().split('\r\n');
 }
 
 function getCommandType(request) {
-  return request[2].toLowerCase();
+  const command = request[2].lowerCase();
+  if (command === 'config') {
+    return command + ' ' + request[3].toLowerCase();
+  }
+  return command;
 }
 
 function getCommandData(request) {
@@ -57,8 +63,26 @@ function getCommand(key) {
   return dataStore.get(key) ? dataStore.get(key) : -1;
 }
 
+function configGetCommand(key) {
+  const value = config.get(key);
+  const responseArr = [
+    `$${key.length}\r\n${key}\r\n`,
+    `$${value.length}\r\n${value}\r\n`,
+  ];
+  return `*${responseArr.length}\r\n${responseArr.join('')}`;
+}
+
 function returnRESP(response) {
-  return response === -1 ? `$-1\r\n` : `+${response}\r\n`;
+  switch (response) {
+    case 'OK':
+      return `+${response}\r\n`;
+    case 'PONG':
+      return `+${response}\r\n`;
+    case -1:
+      return '$-1\r\n';
+    default:
+      return response;
+  }
 }
 
 const server = net.createServer((connection) => {
@@ -66,6 +90,11 @@ const server = net.createServer((connection) => {
     const request = getRequestData(data);
     const command = getCommandType(request);
     const { key, value, arg, limit } = getCommandData(request);
+
+    const configCommand = process.argv.slice(2);
+    const [configType, configValue] = [configCommand[1], configCommand[3]];
+
+    config.set(configType, configValue);
 
     switch (command) {
       case 'echo':
@@ -79,6 +108,9 @@ const server = net.createServer((connection) => {
         break;
       case 'get':
         connection.write(returnRESP(getCommand(key)));
+        break;
+      case 'config get':
+        connection.write(returnRESP(configGetCommand(key)));
         break;
     }
   });
