@@ -21,8 +21,7 @@ class RedisRdbEncoder {
     let counter = REDIS_MAIN.REDIS_MAGIC_STRING + REDIS_MAIN.RDB_VERSION;
 
     while (counter < buffer.length) {
-      console.log(counter, buffer[counter]);
-      const opCode = buffer[counter];
+      const opCode = buffer[counter++];
 
       if (opCode === OP_CODES.EOF) {
         break;
@@ -33,6 +32,7 @@ class RedisRdbEncoder {
         counter += keyLength;
       } else {
         counter++;
+        keys.push(buffer.toString('utf-8', counter, counter + 1));
       }
     }
 
