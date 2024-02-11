@@ -74,10 +74,7 @@ function keysCommand(key) {
   config.forEach((value) => (rdbPath += value));
 
   if (key === '*') {
-    fs.readFile(rdbPath, (err, data) => {
-      if (err) throw err;
-      console.log(Buffer.from(data).toString());
-    });
+    console.log(fs.readFile(rdbPath));
   }
 }
 
