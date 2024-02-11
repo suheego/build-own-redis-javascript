@@ -96,9 +96,10 @@ const server = net.createServer((connection) => {
       console.log(cfg);
       if (cfg.includes('--')) {
         result.add(cfg);
-        console.log(result);
       } else {
         result.add(cfg);
+        console.log(result[0]);
+
         config.set(result[0], result[1]);
         result.clear();
       }
