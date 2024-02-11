@@ -57,6 +57,10 @@ function setCommand(key, value, arg, limit) {
 }
 
 function getCommand(key) {
+  console.log(config.get(dir));
+
+  const path = '/'.config.get('dir');
+
   fs.readFile(
     '/' + config.get('dir').join('/').join(config.get('dbfilename')),
     (err, data) => {
