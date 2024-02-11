@@ -11,12 +11,10 @@ function getRequestData(data) {
 }
 
 function getCommandType(request) {
-  const command = request[2].toLowerCase();
-
-  console.log(command);
   console.log(request);
+  const command = request[2].toLowerCase();
   if (command === 'config') {
-    return command + ' ' + request[3].toLowerCase();
+    return command + ' ' + request[].toLowerCase();
   }
   return command;
 }
