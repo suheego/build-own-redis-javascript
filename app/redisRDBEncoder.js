@@ -32,10 +32,6 @@ class RedisRdbEncoder {
         counter += keyLength;
       } else {
         counter++;
-        const keyLength = this.extractKeyLength(buffer, counter);
-        const key = buffer.toString('utf-8', counter, counter + keyLength);
-        keys.push(key);
-        counter += keyLength;
       }
     }
 
