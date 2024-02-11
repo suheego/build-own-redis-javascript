@@ -10,17 +10,14 @@ function getRequestData(data) {
   return data.toString().split('\r\n');
 }
 
-function getCommandType(request) {
-  console.log(request);
-  const command = request[2].toLowerCase();
-  if (command === 'config') {
-    return command + ' ' + request[].toLowerCase();
-  }
-  return command;
-}
-
 function getCommandData(request) {
+  let command = request[2].toLowerCase();
+  if (command === 'config') {
+    command = command + ' ' + request[4].toLowerCase();
+    return { command, key: request[6] };
+  }
   return {
+    command,
     key: request[4],
     value: request[6],
     arg: request[8],
@@ -86,8 +83,7 @@ function returnRESP(command, response) {
 const server = net.createServer((connection) => {
   connection.on('data', (data) => {
     const request = getRequestData(data);
-    const command = getCommandType(request);
-    const { key, value, arg, limit } = getCommandData(request);
+    const { command, key, value, arg, limit } = getCommandData(request);
 
     const configCommand = process.argv.slice(2);
 
