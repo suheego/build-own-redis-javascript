@@ -37,15 +37,17 @@ function pingCommand() {
 
 function setCommand(key, value, arg, limit) {
   dataStore.set(key, value);
-  let expire = new Date().getTime() + limit;
 
   switch (arg) {
     case 'ex':
-      dataStore.set('expire', expire);
+      setTimeout(() => {
+        dataStore.delete(key);
+      }, limit);
       break;
     case 'px':
-      expire *= 1000;
-      dataStore.set('expire', expire);
+      setTimeout(() => {
+        dataStore.delete(key);
+      }, limit * 1000);
       break;
     default:
       break;
@@ -55,11 +57,7 @@ function setCommand(key, value, arg, limit) {
 }
 
 function getCommand(key) {
-  const value = dataStore.get(key);
-  if (value === undefined) {
-    return -1;
-  }
-  return value;
+  return dataStore.has(key) ? dataStore.get(key) : -1;
 }
 
 function configGetCommand(key) {
@@ -78,7 +76,7 @@ function returnRESP(command, response) {
     case 'set':
       return `+${response}\r\n`;
     case 'get':
-      return `+${response}\r\n`;
+      return response === -1 ? '$-1\r\n' : `+${response}\r\n`;
     default:
       return response;
   }
