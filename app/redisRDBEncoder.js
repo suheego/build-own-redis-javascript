@@ -22,7 +22,7 @@ class RedisRdbEncoder {
     let counter = REDIS_MAIN.REDIS_MAGIC_STRING + REDIS_MAIN.RDB_VERSION;
 
     while (counter < buffer.length) {
-      const opCode = buffer[counter++];
+      const opCode = buffer[counter];
       console.log(opCode, buffer);
       if (opCode === OP_CODES.EOF) {
         break;
