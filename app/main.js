@@ -76,7 +76,7 @@ function keysCommand(key) {
   if (key === '*') {
     fs.readFile(rdbPath, (err, data) => {
       if (err) throw err;
-      console.log(data);
+      console.log(Buffer(data));
     });
   }
 }
