@@ -69,6 +69,14 @@ function configGetCommand(key) {
   return `*${responseArr.length}\r\n${responseArr.join('')}`;
 }
 
+function keysCommand(key) {
+  const keys = Array.from(dataStore.keys());
+  const responseArr = keys.map((key) => {
+    return `$${key.length}\r\n${key}\r\n`;
+  });
+  return `*${responseArr.length}\r\n${responseArr.join('')}`;
+}
+
 function returnRESP(command, response) {
   switch (command) {
     case 'ping':
@@ -112,6 +120,9 @@ const server = net.createServer((connection) => {
         break;
       case 'config get':
         connection.write(returnRESP(command, configGetCommand(key)));
+        break;
+      case 'keys':
+        connection.write(returnRESP(command, keysCommand(key)));
         break;
     }
   });
