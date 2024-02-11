@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { REDIS_MAIN, OP_CODES, VALUE_TYPE } = require('./redisRDBConstants');
+const { REDIS_MAIN, OP_CODES, VALUE_TYPE } = require('./constants');
 
 class RedisRdbEncoder {
   constructor(filePath) {
