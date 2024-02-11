@@ -59,14 +59,14 @@ function getCommand(key) {
 
   if (dataStore.has(key)) {
     const value = dataStore.get(key);
-    const expire = dataStore.get('expire') ? dataStore.get('expire') : null;
+  //   const expire = dataStore.get('expire') ? dataStore.get('expire') : null;
 
-    if (expire && expire < now) {
-      dataStore.delete(key);
-      return -1;
-    }
-    return value;
-  }
+  //   if (expire && expire < now) {
+  //     dataStore.delete(key);
+  //     return -1;
+  //   }
+  //   return value;
+  // }
   return '(nil)';
 }
 
