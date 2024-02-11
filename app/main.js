@@ -72,13 +72,11 @@ function configGetCommand(key) {
 function keysCommand(key) {
   const rdbPath = Array.from(config.values()).join('/');
 
+  console.log(rdbPath);
+
   if (key === '*') {
-    fs.readFileSync(rdbPath, (err, data) => {
-      if (err) {
-        throw err;
-      }
-      return data;
-    });
+    const data = fs.readFileSync(rdbPath);
+    console.log(data);
   }
 }
 
