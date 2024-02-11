@@ -53,6 +53,8 @@ function setCommand(key, value, arg, limit) {
       break;
   }
 
+  console.log(dataStore);
+
   return 'OK';
 }
 
