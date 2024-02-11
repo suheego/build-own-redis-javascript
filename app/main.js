@@ -76,6 +76,7 @@ function returnRESP(command, response) {
     case 'set':
       return `+${response}\r\n`;
     case 'get':
+      console.log(response);
       return response === -1 ? '$-1\r\n' : `+${response}\r\n`;
     default:
       return response;
