@@ -49,6 +49,8 @@ function setCommand(key, value, arg, limit) {
       dataStore.set(key, value);
   }
 
+  console.log(dataStore.get(key));
+
   return 'OK';
 }
 
