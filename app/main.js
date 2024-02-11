@@ -74,7 +74,13 @@ function keysCommand(key) {
   config.forEach((value) => (rdbPath += value));
 
   if (key === '*') {
-    console.log(fs.readFileSync(rdbPath));
+    fs.readFileSync(rdbPath, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      return data;
+    }
   }
 }
 
