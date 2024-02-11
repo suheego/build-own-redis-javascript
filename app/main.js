@@ -70,10 +70,10 @@ function configGetCommand(key) {
 }
 
 function keysCommand(key) {
-  const filePath = path.join(config.dir, config.dbfilename);
+  const rdbPath = Array.from(config.values()).join('/');
 
   if (key === '*') {
-    fs.readFileSync(filePath, 'utf8', (err, data) => {
+    fs.readFileSync(rdbPath, 'utf8', (err, data) => {
       if (err) {
         throw err;
       }
