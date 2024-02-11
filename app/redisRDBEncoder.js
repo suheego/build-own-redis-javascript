@@ -12,7 +12,6 @@ class RedisRdbEncoder {
     }
 
     const buffer = fs.readFileSync(this.filePath);
-
     const keys = this.extractKeys(buffer);
     return this.encodeRespArrays(keys);
   }
@@ -29,9 +28,11 @@ class RedisRdbEncoder {
       } else if (this.isKeyValueType(opCode)) {
         const keyLength = this.extractKeyLength(buffer, counter);
         const key = buffer.toString('utf-8', counter, counter + keyLength);
-        console.log(key);
         keys.push(key);
         counter += keyLength;
+      } else {
+        counter++;
+        this.extractKeyLength(buffer, counter);
       }
     }
 
