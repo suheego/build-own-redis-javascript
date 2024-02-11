@@ -62,8 +62,6 @@ function getCommand(key) {
 
 function configGetCommand(key) {
   const value = config.get(key);
-
-  console.log(value);
   const responseArr = [
     `$${key.length}\r\n${key}\r\n`,
     `$${value.length}\r\n${value}\r\n`,
@@ -78,7 +76,6 @@ function returnRESP(command, response) {
     case 'set':
       return `+${response}\r\n`;
     case 'get':
-      console.log(response);
       return response === -1 ? '$-1\r\n' : `+${response}\r\n`;
     default:
       return response;
