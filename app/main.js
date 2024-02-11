@@ -62,6 +62,8 @@ function getCommand(key) {
 
 function configGetCommand(key) {
   const value = config.get(key);
+
+  console.log(value);
   const responseArr = [
     `$${key.length}\r\n${key}\r\n`,
     `$${value.length}\r\n${value}\r\n`,
