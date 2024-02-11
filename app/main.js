@@ -1,6 +1,5 @@
 const net = require('net');
 const fs = require('fs');
-const path = require('path');
 
 const PORT = 6379;
 const HOST = '127.0.0.1';
@@ -76,8 +75,6 @@ function keysCommand(key) {
 
   if (key === '*') {
     const buffer = fs.readFileSync(rdbPath);
-    const data = buffer.toString('utf-8');
-    console.log(data);
   }
 }
 
