@@ -48,7 +48,7 @@ function setCommand(key, value, arg, limit) {
       dataStore.set(key, value, expire);
       break;
     default:
-      dataStore.set(key, value);
+      dataStore.set(key, value, null);
   }
 
   return 'OK';
@@ -60,8 +60,6 @@ function getCommand(key) {
   if (dataStore.has(key)) {
     const value = dataStore.get(key);
     const expire = dataStore.get(key);
-
-    console.log('expire', expire);
 
     if (expire && expire < now) {
       dataStore.delete(key);
