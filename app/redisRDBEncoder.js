@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { fs } from 'fs';
 import { REDIS_MAIN, OP_CODES, VALUE_TYPE } from './constants.js';
 
 export class RedisRdbEncoder {
