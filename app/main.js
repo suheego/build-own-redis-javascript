@@ -80,7 +80,7 @@ function keysCommand(key) {
         return;
       }
       return data;
-    }
+    });
   }
 }
 
