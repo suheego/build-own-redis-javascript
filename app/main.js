@@ -61,7 +61,7 @@ function getCommand(key) {
 
   if (dataStore.has(key)) {
     const value = dataStore.get(key);
-    const expire = dataStore.get(key);
+    const expire = dataStore.has(expire);
 
     if (expire && expire < now) {
       dataStore.delete(key);
