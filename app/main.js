@@ -55,6 +55,7 @@ function setCommand(key, value, arg, limit) {
 function getCommand(key) {
   const now = new Date().getTime() / 1000;
 
+  console.log(dataStore.get(key));
   console.log(dataStore.get(key).expire, now);
 
   if (dataStore.get(key).expire < now) {
