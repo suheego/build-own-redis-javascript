@@ -71,6 +71,7 @@ function configGetCommand(key) {
 
 function keysCommand(key) {
   if (key === '*') {
+    console.log(config);
     fs.readFile(config.values().toString(), 'string', (err, data) => {
       if (err) throw err;
       console.log(data);
