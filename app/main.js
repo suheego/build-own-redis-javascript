@@ -54,7 +54,7 @@ function setCommand(key, value, arg, limit) {
 }
 
 function getCommand(key) {
-  return dataStore.get(key) ? dataStore.get(key) : '(nil)';
+  return dataStore.get(key) ? dataStore.get(key) : null;
 }
 
 function returnResponse(response) {
