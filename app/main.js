@@ -90,10 +90,18 @@ const server = net.createServer((connection) => {
     const { key, value, arg, limit } = getCommandData(request);
 
     const configCommand = process.argv.slice(2);
-    const [configType, configValue] = [configCommand[1], configCommand[3]];
+    let result = new Set();
 
-    console.log('Command:', configCommand);
-    console.log('Config:', configType, configValue);
+    configCommand.forEach((config) => {
+      if (config.includes('--')) {
+        result.push(config);
+      } else {
+        result.push(config);
+        result.clear();
+
+        result.add(config);
+      }
+    });
 
     config.set(configType, configValue);
 
