@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { REDIS_MAIN, OP_CODES, VALUE_TYPE } = require('./redisRDBConstants');
 
-export class RedisRdbEncoder {
+class RedisRdbEncoder {
   constructor(filePath) {
     this.filePath = filePath;
   }
@@ -72,3 +72,5 @@ export class RedisRdbEncoder {
     return keys.map((key) => `*1\r\n$${key.length}\r\n${key}\r\n`).join('');
   }
 }
+
+module.exports = RedisRdbEncoder;
