@@ -57,22 +57,6 @@ function setCommand(key, value, arg, limit) {
 }
 
 function getCommand(key) {
-  console.log(config.get(dir));
-
-  const path = '/'.config.get(key);
-
-  fs.readFile(
-    '/' + config.get('dir').join('/').join(config.get('dbfilename')),
-    (err, data) => {
-      if (err) {
-        return -1;
-      }
-      const content = buffer.from(data).toString('utf8');
-      console.log(content);
-      return `+${content.length}\r\n${content}\r\n`;
-    }
-  );
-
   return dataStore.has(key) ? dataStore.get(key) : -1;
 }
 
