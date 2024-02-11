@@ -98,7 +98,7 @@ const server = net.createServer((connection) => {
         result.add(cfg);
       } else {
         result.add(cfg);
-        console.log(result[0]);
+        console.log(result);
 
         config.set(result[0], result[1]);
         result.clear();
