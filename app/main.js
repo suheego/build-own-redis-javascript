@@ -79,6 +79,7 @@ function returnRESP(command, response) {
       console.log(response);
       return response === -1 ? '$-1\r\n' : `+${response}\r\n`;
     default:
+      console.log(response, command);
       return response;
   }
 }
