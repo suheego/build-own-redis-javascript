@@ -30,7 +30,7 @@ function pingCommand() {
   return 'PONG';
 }
 
-function setCommand(key, value, arg?, limit?) {
+function setCommand(key, value, arg, limit) {
   dataStore.set(key, value);
 
   switch (arg) {
