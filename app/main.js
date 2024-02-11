@@ -75,7 +75,8 @@ function keysCommand(key) {
   console.log(rdbPath);
 
   if (key === '*') {
-    const data = fs.readFileSync(rdbPath);
+    const buffer = fs.readFileSync(rdbPath);
+    const data = buffer.toString('utf-8');
     console.log(data);
   }
 }
