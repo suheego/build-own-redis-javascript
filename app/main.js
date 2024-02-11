@@ -71,15 +71,10 @@ function configGetCommand(key) {
 
 function keysCommand(key) {
   if (key === '*') {
-    const responseArr = Array.from(dataStore.keys()).map(
-      (k) => `$${k.length}\r\n${k}\r\n`
-    );
-    return `*${responseArr.length}\r\n${responseArr.join('')}`;
-  } else {
-    const responseArr = Array.from(dataStore.keys())
-      .filter((k) => k.includes(key))
-      .map((k) => `$${k.length}\r\n${k}\r\n`);
-    return `*${responseArr.length}\r\n${responseArr.join('')}`;
+    fs.readFile(config.keys(), 'utf8', (err, data) => {
+      if (err) throw err;
+      console.log(data);
+    });
   }
 }
 
