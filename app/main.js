@@ -57,12 +57,15 @@ function setCommand(key, value, arg, limit) {
 function getCommand(key) {
   const now = new Date().getTime() / 1000;
 
-  if (dataStore.get(key).expire < now) {
-    dataStore.delete(key);
-    return -1;
+  if (dataStore.has(key)) {
+    const [value, expire] = dataStore.get(key);
+    if (expire && expire < now) {
+      dataStore.delete(key);
+      return -1;
+    }
+    return value;
   }
-
-  return dataStore.get(key);
+  return '(nil)';
 }
 
 function configGetCommand(key) {
