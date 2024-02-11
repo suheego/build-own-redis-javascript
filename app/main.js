@@ -94,9 +94,9 @@ const server = net.createServer((connection) => {
 
     configCommand.forEach((config) => {
       if (config.includes('--')) {
-        result.push(config);
+        result.add(config);
       } else {
-        result.push(config);
+        result.add(config);
         config.set(result[0], result[1]);
         result.clear();
       }
