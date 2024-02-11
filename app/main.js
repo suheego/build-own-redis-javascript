@@ -90,20 +90,12 @@ const server = net.createServer((connection) => {
     const { key, value, arg, limit } = getCommandData(request);
 
     const configCommand = process.argv.slice(2);
-    let result = new Set();
 
-    configCommand.forEach((cfg) => {
-      console.log(cfg);
-      if (cfg.includes('--')) {
-        result.add(cfg);
-      } else {
-        result.add(cfg);
-        config.set(result);
-        result.clear();
+    for (let i = 0; i < configCommand.length; i++) {
+      if (configCommand[i].startsWith('--')) {
+        config.set(configCommand[i], configCommand[i + 1]);
       }
-    });
-
-    console.log(config);
+    }
 
     switch (command) {
       case 'echo':
