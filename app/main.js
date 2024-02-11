@@ -1,5 +1,5 @@
 const net = require('net');
-const fs = require('fs');
+const dayjs = require('dayjs');
 
 const PORT = 6379;
 const HOST = '127.0.0.1';
@@ -37,28 +37,31 @@ function pingCommand() {
 }
 
 function setCommand(key, value, arg, limit) {
-  dataStore.set(key, value);
+  const now = dayjs().unix();
 
   switch (arg) {
     case 'ex':
-      setTimeout(() => {
-        dataStore.delete(key);
-      }, limit * 1000);
+      dataStore.set(key, value, now + limit);
       break;
     case 'px':
-      setTimeout(() => {
-        dataStore.delete(key);
-      }, limit);
+      dataStore.set(key, value, now + limit / 1000);
       break;
     default:
-      break;
+      dataStore.set(key, value);
   }
 
   return 'OK';
 }
 
-function getCommand(key) {
-  return dataStore.get(key) ? dataStore.get(key) : -1;
+function getCommand(key, arg, limit) {
+  const now = dayjs().unix();
+
+  if (dataStore.get(key).expire < now) {
+    dataStore.delete(key);
+    return -1;
+  }
+
+  return dataStore.get(key) ? dataStore.get(key) : 'nil';
 }
 
 function configGetCommand(key) {
