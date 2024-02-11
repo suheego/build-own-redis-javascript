@@ -12,8 +12,9 @@ function getRequestData(data) {
 
 function getCommandType(request) {
   const command = request[2].toLowerCase();
+
+  console.log(command);
   if (command === 'config') {
-    console.log(request[3].toLowerCase());
     return command + ' ' + request[3].toLowerCase();
   }
   return command;
