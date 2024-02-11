@@ -73,7 +73,7 @@ function keysCommand(key) {
   const rdbPath = Array.from(config.values()).join('/');
 
   if (key === '*') {
-    fs.readFileSync(rdbPath, 'utf8', (err, data) => {
+    fs.readFileSync(rdbPath, (err, data) => {
       if (err) {
         throw err;
       }
