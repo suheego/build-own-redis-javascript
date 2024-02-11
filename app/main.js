@@ -55,21 +55,11 @@ function setCommand(key, value, arg, limit) {
 }
 
 function getCommand(key) {
-  const now = new Date().getTime() / 1000;
-
-  if (dataStore.has(key)) {
-    const value = dataStore.get(key);
-    //   const expire = dataStore.get('expire') ? dataStore.get('expire') : null;
-
-    //   if (expire && expire < now) {
-    //     dataStore.delete(key);
-    //     return -1;
-    //   }
-    //   return value;
-    // }
-    return value;
+  const value = dataStore.get(key);
+  if (value === undefined) {
+    return -1;
   }
-  return '(nil)';
+  return value;
 }
 
 function configGetCommand(key) {
