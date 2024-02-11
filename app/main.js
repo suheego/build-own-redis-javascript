@@ -5,27 +5,80 @@ const HOST = '127.0.0.1';
 
 let dataStore = new Map();
 
+function getRequestData(data) {
+  return data.toString().split('\r\n');
+}
+
+function getCommandType(request) {
+  return request[2].toLowerCase();
+}
+
+function getCommandData(request) {
+  return {
+    key: request[4],
+    value: request[6],
+    arg: request[8],
+    limit: parseInt(request[10]),
+  };
+}
+
+function echoCommand(key) {
+  return key;
+}
+
+function pingCommand() {
+  return 'PONG';
+}
+
+function setCommand(key, value, arg?, limit?) {
+  dataStore.set(key, value);
+
+  switch (arg) {
+    case 'ex':
+      setTimeout(() => {
+        dataStore.delete(key);
+      }, limit * 1000);
+      break;
+    case 'px':
+      setTimeout(() => {
+        dataStore.delete(key);
+      }, limit);
+      break;
+    default:
+      break;
+  }
+
+  if (dataStore.has(key)) {
+    return 'OK';
+  }
+}
+
+function getCommand(key) {
+  return dataStore.get(key) ? dataStore.get(key) : -1;
+}
+
+function returnResponse(response) {
+  return `+${response}\r\n`;
+}
+
 const server = net.createServer((connection) => {
   connection.on('data', (data) => {
-    const request = data.toString().split('\r\n');
-    const command = request[2].toLowerCase();
-    const [key, value] = [request[4], request[6]];
+    const request = getRequestData(data);
+    const command = getCommandType(request);
+    const { key, value, arg, limit } = getCommandData(request);
 
     switch (command) {
       case 'echo':
-        connection.write(`+${key}\r\n`);
+        connection.write(returnResponse(echoCommand(key)));
         break;
       case 'ping':
-        connection.write('+PONG\r\n');
+        connection.write(returnResponse(pingCommand()));
         break;
       case 'set':
-        dataStore.set(key, value);
-        connection.write('+OK\r\n');
+        connection.write(returnResponse(setCommand(key, value, arg, limit)));
         break;
       case 'get':
-        connection.write(
-          `+${dataStore.get(key) ? dataStore.get(key) : '(nil)'}\r\n`
-        );
+        connection.write(returnResponse(getCommand(key)));
         break;
     }
   });
