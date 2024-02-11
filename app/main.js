@@ -72,14 +72,15 @@ function configGetCommand(key) {
   return `*${responseArr.length}\r\n${responseArr.join('')}`;
 }
 
-function returnRESP(response) {
-  switch (response) {
-    case 'OK':
+function returnRESP(command, response) {
+  switch (command) {
+    case 'ping':
+    case 'pong':
+    case 'echo':
+    case 'set':
       return `+${response}\r\n`;
-    case 'PONG':
-      return `+${response}\r\n`;
-    case -1:
-      return '$-1\r\n';
+    case 'get':
+      return response === -1 ? `+${response}\r\n` : '$-1\r\n';
     default:
       return response;
   }
@@ -98,19 +99,21 @@ const server = net.createServer((connection) => {
 
     switch (command) {
       case 'echo':
-        connection.write(returnRESP(echoCommand(key)));
+        connection.write(returnRESP(command, echoCommand(key)));
         break;
       case 'ping':
-        connection.write(returnRESP(pingCommand()));
+        connection.write(returnRESP(command, pingCommand()));
         break;
       case 'set':
-        connection.write(returnRESP(setCommand(key, value, arg, limit)));
+        connection.write(
+          returnRESP(command, setCommand(key, value, arg, limit))
+        );
         break;
       case 'get':
-        connection.write(returnRESP(getCommand(key)));
+        connection.write(returnRESP(command, getCommand(key)));
         break;
       case 'config get':
-        connection.write(returnRESP(configGetCommand(key)));
+        connection.write(returnRESP(command, configGetCommand(key)));
         break;
     }
   });
