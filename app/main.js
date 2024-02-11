@@ -54,11 +54,11 @@ function setCommand(key, value, arg, limit) {
 }
 
 function getCommand(key) {
-  return dataStore.get(key) ? dataStore.get(key) : '$-1\r\n';
+  return dataStore.get(key) ? dataStore.get(key) : -1;
 }
 
-function returnResponse(response) {
-  return `+${response}\r\n`;
+function returnRESP(response) {
+  return response === -1 ? `$-1\r\n` : `+${response}\r\n`;
 }
 
 const server = net.createServer((connection) => {
@@ -69,16 +69,16 @@ const server = net.createServer((connection) => {
 
     switch (command) {
       case 'echo':
-        connection.write(returnResponse(echoCommand(key)));
+        connection.write(returnRESP(echoCommand(key)));
         break;
       case 'ping':
-        connection.write(returnResponse(pingCommand()));
+        connection.write(returnRESP(pingCommand()));
         break;
       case 'set':
-        connection.write(returnResponse(setCommand(key, value, arg, limit)));
+        connection.write(returnRESP(setCommand(key, value, arg, limit)));
         break;
       case 'get':
-        connection.write(returnResponse(getCommand(key)));
+        connection.write(returnRESP(getCommand(key)));
         break;
     }
   });
