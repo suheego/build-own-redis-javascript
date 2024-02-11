@@ -59,6 +59,7 @@ function getCommand(key) {
   if (value === undefined) {
     return -1;
   }
+  console.log('value', value);
   return value;
 }
 
