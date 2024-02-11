@@ -37,13 +37,15 @@ function pingCommand() {
 
 function setCommand(key, value, arg, limit) {
   const now = new Date().getTime() / 1000;
+  let expire = now + limit;
 
   switch (arg) {
     case 'ex':
-      dataStore.set(key, value, now + limit);
+      dataStore.set(key, value, expire);
       break;
     case 'px':
-      dataStore.set(key, value, now + limit / 1000);
+      expire *= 1000;
+      dataStore.set(key, value, expire);
       break;
     default:
       dataStore.set(key, value);
@@ -54,9 +56,6 @@ function setCommand(key, value, arg, limit) {
 
 function getCommand(key) {
   const now = new Date().getTime() / 1000;
-
-  console.log(dataStore.get(key));
-  console.log(dataStore.get(key).expire, now);
 
   if (dataStore.get(key).expire < now) {
     dataStore.delete(key);
