@@ -70,9 +70,11 @@ function configGetCommand(key) {
 }
 
 function keysCommand(key) {
+  let rdbPath = '';
+  config.forEach((value) => (rdbPath += value));
+
   if (key === '*') {
-    console.log(config);
-    fs.readFile(config.values().toString(), 'string', (err, data) => {
+    fs.readFile(rdbPath, (err, data) => {
       if (err) throw err;
       console.log(data);
     });
