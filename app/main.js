@@ -73,10 +73,7 @@ function keysCommand(key) {
 
   if (key === '*') {
     const data = new RedisRdbEncoder(rdbPath);
-    console.log(data);
-    const keys = data.extractKeys(data.buffer);
-    console.log(keys);
-    return data.encodeRespArrays(keys);
+    return data.encode();
   }
 }
 
