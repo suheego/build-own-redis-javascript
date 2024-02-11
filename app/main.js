@@ -109,7 +109,7 @@ const server = net.createServer((connection) => {
         );
         break;
       case 'get':
-        connection.write(returnRESP(command, getCommand(key)));
+        connection.write(returnRESP(command, getCommand(key, arg, limit)));
         break;
       case 'config get':
         connection.write(returnRESP(command, configGetCommand(key)));
