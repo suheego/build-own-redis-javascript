@@ -42,12 +42,12 @@ function setCommand(key, value, arg, limit) {
     case 'ex':
       setTimeout(() => {
         dataStore.delete(key);
-      }, limit);
+      }, limit * 1000);
       break;
     case 'px':
       setTimeout(() => {
         dataStore.delete(key);
-      }, limit * 1000);
+      }, limit);
       break;
     default:
       break;
