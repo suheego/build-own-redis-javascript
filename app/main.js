@@ -1,6 +1,6 @@
 const net = require('net');
 const fs = require('fs');
-const { buffer } = require('stream/consumers');
+const path = require('path');
 
 const PORT = 6379;
 const HOST = '127.0.0.1';
@@ -70,11 +70,10 @@ function configGetCommand(key) {
 }
 
 function keysCommand(key) {
-  let rdbPath = '';
-  config.forEach((value) => (rdbPath += value));
+  const filePath = path.join(config.dir, config.dbfilename);
 
   if (key === '*') {
-    fs.readFileSync(rdbPath, 'utf8', (err, data) => {
+    fs.readFileSync(filePath, 'utf8', (err, data) => {
       if (err) {
         throw err;
       }
