@@ -97,6 +97,8 @@ const server = net.createServer((connection) => {
       }
     }
 
+    console.log('Command:', config);
+
     switch (command) {
       case 'echo':
         connection.write(returnRESP(command, echoCommand(key)));
