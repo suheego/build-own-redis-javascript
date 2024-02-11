@@ -52,8 +52,10 @@ function setCommand(key, value, arg, limit) {
   return 'OK';
 }
 
-function getCommand(key, arg, limit) {
+function getCommand(key) {
   const now = new Date().getTime() / 1000;
+
+  console.log(dataStore.get(key).expire, now);
 
   if (dataStore.get(key).expire < now) {
     dataStore.delete(key);
@@ -109,7 +111,7 @@ const server = net.createServer((connection) => {
         );
         break;
       case 'get':
-        connection.write(returnRESP(command, getCommand(key, arg, limit)));
+        connection.write(returnRESP(command, getCommand(key)));
         break;
       case 'config get':
         connection.write(returnRESP(command, configGetCommand(key)));
