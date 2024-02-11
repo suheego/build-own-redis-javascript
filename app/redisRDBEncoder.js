@@ -12,28 +12,9 @@ class RedisRdbEncoder {
     }
 
     const buffer = fs.readFileSync(this.filePath);
-    if (!this.isValidRdb(buffer)) {
-      throw new Error('Invalid RDB file');
-    }
 
     const keys = this.extractKeys(buffer);
     return this.encodeRespArrays(keys);
-  }
-
-  isValidRdb(buffer) {
-    const magicString = buffer.toString(
-      'utf-8',
-      0,
-      REDIS_MAIN.REDIS_MAGIC_STRING
-    );
-    const version = parseInt(
-      buffer.toString(
-        'utf-8',
-        REDIS_MAIN.REDIS_MAGIC_STRING,
-        REDIS_MAIN.REDIS_MAGIC_STRING + REDIS_MAIN.RDB_VERSION
-      )
-    );
-    return magicString === 'REDIS' && version === 4;
   }
 
   extractKeys(buffer) {
