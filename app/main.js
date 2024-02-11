@@ -71,7 +71,7 @@ function configGetCommand(key) {
 
 function keysCommand(key) {
   if (key === '*') {
-    fs.readFile(config.keys(), 'utf8', (err, data) => {
+    fs.readFile(config.keys(), 'string', (err, data) => {
       if (err) throw err;
       console.log(data);
     });
