@@ -61,7 +61,7 @@ function getCommand(key) {
 }
 
 function configGetCommand(key) {
-  const value = config.get(key);
+  const value = config.get(key.split('--')[1]);
   const responseArr = [
     `$${key.length}\r\n${key}\r\n`,
     `$${value.length}\r\n${value}\r\n`,
@@ -96,8 +96,6 @@ const server = net.createServer((connection) => {
         config.set(configCommand[i], configCommand[i + 1]);
       }
     }
-
-    console.log('Command:', config);
 
     switch (command) {
       case 'echo':
