@@ -61,7 +61,7 @@ function getCommand(key) {
 }
 
 function configGetCommand(key) {
-  const value = config.get(key.split('--')[1]);
+  const value = config.get(key);
   const responseArr = [
     `$${key.length}\r\n${key}\r\n`,
     `$${value.length}\r\n${value}\r\n`,
@@ -93,7 +93,7 @@ const server = net.createServer((connection) => {
 
     for (let i = 0; i < configCommand.length; i++) {
       if (configCommand[i].startsWith('--')) {
-        config.set(configCommand[i], configCommand[i + 1]);
+        config.set(configCommand[i].split('--')[1], configCommand[i + 1]);
       }
     }
 
