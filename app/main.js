@@ -71,10 +71,9 @@ function configGetCommand(key) {
 function keysCommand(key) {
   const rdbPath = Array.from(config.values()).join('/');
 
-  console.log(rdbPath);
-
   if (key === '*') {
     const buffer = fs.readFileSync(rdbPath);
+    console.log(buffer);
   }
 }
 
