@@ -1,5 +1,4 @@
 const net = require('net');
-const dayjs = require('dayjs');
 
 const PORT = 6379;
 const HOST = '127.0.0.1';
@@ -37,7 +36,7 @@ function pingCommand() {
 }
 
 function setCommand(key, value, arg, limit) {
-  const now = dayjs().unix();
+  const now = new Date().getTime() / 1000;
 
   switch (arg) {
     case 'ex':
@@ -54,7 +53,7 @@ function setCommand(key, value, arg, limit) {
 }
 
 function getCommand(key, arg, limit) {
-  const now = dayjs().unix();
+  const now = new Date().getTime() / 1000;
 
   if (dataStore.get(key).expire < now) {
     dataStore.delete(key);
