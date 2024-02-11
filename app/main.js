@@ -72,7 +72,7 @@ function configGetCommand(key) {
 function keysCommand(key) {
   if (key === '*') {
     console.log(config.values());
-    fs.readFile(config.values().join('/'), 'string', (err, data) => {
+    fs.readFile(Array.from(config.values())), 'string', (err, data) => {
       if (err) throw err;
       console.log(data);
     });
