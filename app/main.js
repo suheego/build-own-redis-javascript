@@ -70,11 +70,8 @@ function configGetCommand(key) {
 }
 
 function keysCommand(key) {
-  const keys = Array.from(dataStore.keys());
-  console.log(keys);
-  const responseArr = keys.map((key) => {
-    return `$${key.length}\r\n${key}\r\n`;
-  });
+  const keys = Array.from(dataStore.keys()).filter((k) => k.includes(key));
+  const responseArr = keys.map((k) => `$${k.length}\r\n${k}\r\n`);
   return `*${responseArr.length}\r\n${responseArr.join('')}`;
 }
 
