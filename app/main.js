@@ -1,5 +1,5 @@
 const net = require('net');
-const fs = require('fs');
+const { RedisRdbEncoder } = require('./redisRDBEncoder');
 
 const PORT = 6379;
 const HOST = '127.0.0.1';
@@ -72,8 +72,11 @@ function keysCommand(key) {
   const rdbPath = Array.from(config.values()).join('/');
 
   if (key === '*') {
-    const buffer = fs.readFileSync(rdbPath);
-    console.log(buffer);
+    const data = new RedisRdbEncoder(rdbPath);
+    console.log(data);
+    const keys = data.extractKeys(data.buffer);
+    console.log(keys);
+    return data.encodeRespArrays(keys);
   }
 }
 
