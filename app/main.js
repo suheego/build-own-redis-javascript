@@ -49,8 +49,6 @@ function setCommand(key, value, arg, limit) {
       dataStore.set(key, value);
   }
 
-  console.log(dataStore.get(key));
-
   return 'OK';
 }
 
@@ -62,7 +60,7 @@ function getCommand(key, arg, limit) {
     return -1;
   }
 
-  return dataStore.get(key) ? dataStore.get(key) : 'nil';
+  return dataStore.get(key);
 }
 
 function configGetCommand(key) {
