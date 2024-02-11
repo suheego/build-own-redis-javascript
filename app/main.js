@@ -39,6 +39,8 @@ function setCommand(key, value, arg, limit) {
   const now = new Date().getTime() / 1000;
   let expire = now + limit;
 
+  console.log(key, value, arg, limit);
+
   switch (arg) {
     case 'ex':
       dataStore.set(key, value, expire);
@@ -62,8 +64,6 @@ function getCommand(key) {
   if (dataStore.has(key)) {
     const value = dataStore.get(key);
     const expire = dataStore.get(key);
-
-    console.log(value, expire, now);
 
     if (expire && expire < now) {
       dataStore.delete(key);
