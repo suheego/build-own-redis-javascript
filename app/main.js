@@ -1,4 +1,6 @@
 const net = require('net');
+const fs = require('fs');
+const { buffer } = require('stream/consumers');
 
 const PORT = 6379;
 const HOST = '127.0.0.1';
@@ -55,6 +57,18 @@ function setCommand(key, value, arg, limit) {
 }
 
 function getCommand(key) {
+  fs.readFile(
+    '/' + config.get('dir').join('/').join(config.get('dbfilename')),
+    (err, data) => {
+      if (err) {
+        return -1;
+      }
+      const content = buffer.from(data).toString('utf8');
+      console.log(content);
+      return `+${content.length}\r\n${content}\r\n`;
+    }
+  );
+
   return dataStore.has(key) ? dataStore.get(key) : -1;
 }
 
