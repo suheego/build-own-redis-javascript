@@ -70,9 +70,17 @@ function configGetCommand(key) {
 }
 
 function keysCommand(key) {
-  const keys = Array.from(dataStore.keys()).filter((k) => k.includes(key));
-  const responseArr = keys.map((k) => `$${k.length}\r\n${k}\r\n`);
-  return `*${responseArr.length}\r\n${responseArr.join('')}`;
+  if (key === '*') {
+    const responseArr = Array.from(dataStore.keys()).map(
+      (k) => `$${k.length}\r\n${k}\r\n`
+    );
+    return `*${responseArr.length}\r\n${responseArr.join('')}`;
+  } else {
+    const responseArr = Array.from(dataStore.keys())
+      .filter((k) => k.includes(key))
+      .map((k) => `$${k.length}\r\n${k}\r\n`);
+    return `*${responseArr.length}\r\n${responseArr.join('')}`;
+  }
 }
 
 function returnRESP(command, response) {
