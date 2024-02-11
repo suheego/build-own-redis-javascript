@@ -97,9 +97,8 @@ const server = net.createServer((connection) => {
         result.push(config);
       } else {
         result.push(config);
+        config.set(result[0], result[1]);
         result.clear();
-
-        result.add(config);
       }
     });
 
