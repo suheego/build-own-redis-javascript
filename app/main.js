@@ -14,7 +14,7 @@ function getCommandType(request) {
   const command = request[2].toLowerCase();
 
   console.log(command);
-  console.log(request[4].toLowerCase());
+  console.log(request);
   if (command === 'config') {
     return command + ' ' + request[3].toLowerCase();
   }
