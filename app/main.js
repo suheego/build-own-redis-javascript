@@ -76,8 +76,7 @@ function keysCommand(key) {
   if (key === '*') {
     fs.readFileSync(rdbPath, 'utf8', (err, data) => {
       if (err) {
-        console.error(err);
-        return;
+        throw err;
       }
       return data;
     });
