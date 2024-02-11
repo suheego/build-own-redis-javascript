@@ -93,6 +93,7 @@ const server = net.createServer((connection) => {
     let result = new Set();
 
     configCommand.forEach((cfg) => {
+      console.log(cfg);
       if (cfg.includes('--')) {
         result.add(cfg);
       } else {
