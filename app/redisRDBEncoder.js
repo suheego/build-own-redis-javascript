@@ -1,5 +1,5 @@
-import { fs } from 'fs';
-import { REDIS_MAIN, OP_CODES, VALUE_TYPE } from './constants.js';
+const fs = require('fs');
+const { REDIS_MAIN, OP_CODES, VALUE_TYPE } = require('./redisRDBConstants');
 
 export class RedisRdbEncoder {
   constructor(filePath) {
