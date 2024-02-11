@@ -48,7 +48,9 @@ function setCommand(key, value, arg, limit) {
       dataStore.set(key, value, expire);
       break;
     default:
-      dataStore.set(key, value, null);
+      expire = null;
+      dataStore.set(key, value, expire);
+      break;
   }
 
   return 'OK';
