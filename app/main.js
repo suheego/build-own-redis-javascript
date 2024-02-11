@@ -1,5 +1,5 @@
 const net = require('net');
-const { RedisRdbEncoder } = require('./redisRDBEncoder');
+const RedisRdbEncoder = require('./path/to/RedisRdbEncoder');
 
 const PORT = 6379;
 const HOST = '127.0.0.1';
