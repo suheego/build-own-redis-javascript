@@ -79,7 +79,6 @@ function returnRESP(command, response) {
       console.log(response);
       return response === -1 ? '$-1\r\n' : `+${response}\r\n`;
     default:
-      console.log(response, command);
       return response;
   }
 }
@@ -92,6 +91,9 @@ const server = net.createServer((connection) => {
 
     const configCommand = process.argv.slice(2);
     const [configType, configValue] = [configCommand[1], configCommand[3]];
+
+    console.log('Command:', configCommand);
+    console.log('Config:', configType, configValue);
 
     config.set(configType, configValue);
 
