@@ -59,7 +59,6 @@ function getCommand(key) {
   if (value === undefined) {
     return -1;
   }
-  console.log('value', value);
   return value;
 }
 
@@ -79,7 +78,7 @@ function returnRESP(command, response) {
     case 'set':
       return `+${response}\r\n`;
     case 'get':
-      return response === -1 ? `+${response}\r\n` : '$-1\r\n';
+      return `+${response}\r\n`;
     default:
       return response;
   }
