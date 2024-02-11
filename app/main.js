@@ -92,11 +92,11 @@ const server = net.createServer((connection) => {
     const configCommand = process.argv.slice(2);
     let result = new Set();
 
-    configCommand.forEach((config) => {
-      if (config.includes('--')) {
-        result.add(config);
+    configCommand.forEach((cfg) => {
+      if (cfg.includes('--')) {
+        result.add(cfg);
       } else {
-        result.add(config);
+        result.add(cfg);
         config.set(result[0], result[1]);
         result.clear();
       }
