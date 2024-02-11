@@ -1,6 +1,6 @@
 const REDIS_MAIN = {
   REDIS_MAGIC_STRING: 5,
-  RDB_VERSION: 4,
+  RDB_VERSION: 3,
 };
 
 const OP_CODES = {
