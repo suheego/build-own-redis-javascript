@@ -23,7 +23,9 @@ const server = net.createServer((connection) => {
         connection.write('+OK\r\n');
         break;
       case 'get':
-        connection.write(dataStore?.get(key) ?? '(nil)\r\n');
+        connection.write(
+          `+${dataStore.get(key) ? dataStore.get(key) : '(nil)'}\r\n`
+        );
         break;
     }
   });
